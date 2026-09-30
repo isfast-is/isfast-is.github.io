@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Ísfast – verkefnasíður</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%2312263A%22/><text x=%2250%22 y=%2268%22 font-size=%2252%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22%23C9A227%22 text-anchor=%22middle%22>ÍF</text></svg>">
+<style>
+  :root {
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --card-hover: #f7f9fc;
+    --border: #d9e0e8;
+    --text: #12263A;
+    --muted: #5b6b7c;
+    --accent: #1D3A57;
+    --gold: #C9A227;
+    --chip: #EAF1F8;
+    --chip-text: #1D3A57;
+    --error: #b3261e;
+    --ok: #2e7d4f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1721;
+      --card: #16222f;
+      --card-hover: #1b2938;
+      --border: #2a3a4c;
+      --text: #e8edf2;
+      --muted: #97a6b6;
+      --accent: #8fb6dd;
+      --gold: #E8C468;
+      --chip: #22344a;
+      --chip-text: #cfe3f5;
+      --error: #f28b82;
+      --ok: #7fd1a0;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 0 1rem 4rem;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+  .brand {
+    display: flex; align-items: center; gap: 0.75rem;
+    padding: 1.4rem 0 1.2rem;
+  }
+  .brand .mark {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--accent); color: var(--gold);
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 1.05rem; letter-spacing: 0.02em;
+    flex: none;
+  }
+  .brand .t1 { font-weight: 700; font-size: 1.15rem; line-height: 1.2; }
+  .brand .t2 { color: var(--muted); font-size: 0.85rem; }
+
+  /* Læsiskjár */
+  #lock { max-width: 380px; margin: 12vh auto 0; text-align: center; }
+  #lock .mark { margin: 0 auto 1rem; width: 64px; height: 64px; font-size: 1.5rem; border-radius: 16px; }
+  #lock h1 { font-size: 1.3rem; font-weight: 700; }
+  #lock p { color: var(--muted); font-size: 0.92rem; margin-top: 0.35rem; }
+  #lock form { display: flex; gap: 0.5rem; margin-top: 1.25rem; }
+  #lock input {
+    flex: 1; padding: 0.7rem 0.9rem; font-size: 1rem;
+    color: var(--text); background: var(--card);
+    border: 1px solid var(--border); border-radius: 10px; outline: none;
+  }
+  #lock input:focus { border-color: var(--accent); }
+  #lock button {
+    padding: 0.7rem 1.15rem; font-size: 1rem; color: #fff;
+    background: var(--accent); border: none; border-radius: 10px; cursor: pointer;
+  }
+  #lock .msg { margin-top: 0.75rem; font-size: 0.9rem; color: var(--error); min-height: 1.3em; }
+
+  /* Aðalsíða */
+  header { margin-bottom: 1.5rem; }
+  header .intro { color: var(--muted); font-size: 0.95rem; max-width: 62ch; }
+  .tools { display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; }
+  #filter {
+    flex: 1 1 240px; padding: 0.6rem 0.9rem; font-size: 1rem;
+    color: var(--text); background: var(--card);
+    border: 1px solid var(--border); border-radius: 10px; outline: none;
+  }
+  #filter:focus { border-color: var(--accent); }
+  .toggle {
+    padding: 0.6rem 0.9rem; font-size: 0.9rem; color: var(--chip-text);
+    background: var(--chip); border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+  }
+  section { margin-top: 2rem; }
+  h2 {
+    font-size: 0.95rem; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  h2::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 0.8rem; }
+  .card {
+    display: flex; flex-direction: column;
+    background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+    border-radius: 12px; padding: 0.95rem 1.1rem 0.85rem;
+    transition: background 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
+  }
+  .card:hover { background: var(--card-hover); border-color: var(--accent); border-left-color: var(--gold); transform: translateY(-1px); }
+  .card a.main { text-decoration: none; color: inherit; display: block; flex: 1; }
+  .card .name { font-weight: 650; font-size: 1.02rem; }
+  .card .name::after { content: " ↗"; color: var(--muted); font-size: 0.8em; }
+  .card .desc { color: var(--muted); font-size: 0.86rem; margin-top: 0.25rem; }
+  .meta { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.7rem; flex-wrap: wrap; }
+  .chip {
+    font-size: 0.8rem; padding: 0.2rem 0.6rem; border-radius: 999px;
+    background: var(--chip); color: var(--chip-text); border: 1px solid transparent;
+  }
+  .chip.open { background: transparent; border-color: var(--border); color: var(--muted); }
+  .pw {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.82rem; color: var(--muted); cursor: pointer;
+    background: none; border: 1px solid var(--border); border-radius: 8px; padding: 0.2rem 0.55rem;
+  }
+  .pw:hover { border-color: var(--accent); color: var(--text); }
+  .pw code { font-family: ui-monospace, Menlo, monospace; font-size: 0.86rem; color: var(--text); letter-spacing: 0.02em; }
+  .pw.copied { border-color: var(--ok); color: var(--ok); }
+  body.hidepw .pw code { filter: blur(5px); user-select: none; }
+  footer {
+    margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.86rem;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;
+  }
+  footer a { color: var(--accent); text-decoration: none; cursor: pointer; }
+  footer a:hover { text-decoration: underline; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="lock" class="hidden">
+    <div class="mark">ÍF</div>
+    <h1>Ísfast – verkefnasíður</h1>
+    <p>Sláðu inn aðgangsorð teymisins til að opna yfirlitið.</p>
+    <form id="lockform">
+      <input id="pass" type="password" placeholder="Aðgangsorð" autocomplete="current-password" autofocus>
+      <button type="submit">Opna</button>
+    </form>
+    <div class="msg" id="lockmsg"></div>
+  </div>
+
+  <div id="app" class="hidden">
+    <div class="brand">
+      <div class="mark">ÍF</div>
+      <div>
+        <div class="t1">Íslenskar fasteignir – verkefnasíður</div>
+        <div class="t2">Allar vinnusíður, mælaborð og kynningar á einum stað</div>
+      </div>
+    </div>
+    <header>
+      <p class="intro">Hver síða hefur sitt aðgangsorð. Það stendur við hvert spjald; smelltu á það til að afrita. Síður merktar <span class="chip">isfast.is innskráning</span> opnast með Google-reikningi félagsins.</p>
+      <div class="tools">
+        <input id="filter" type="search" placeholder="Leita…" autocomplete="off">
+        <button class="toggle" id="pwtoggle" type="button">Fela aðgangsorð</button>
+      </div>
+    </header>
+    <main id="content"></main>
+    <footer>
+      <span>Uppfært <span id="updated"></span> · <a id="lockbtn">Læsa þessu tæki</a></span>
+      <span>Íslenskar fasteignir ehf.</span>
+    </footer>
+  </div>
+</div>
+<script>
+const STORE_KEY = 'if_lp_pass';
+const HIDE_KEY = 'if_lp_hidepw';
+const enc = new TextEncoder();
+const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+
+async function decrypt(payload, passphrase) {
+  const keyMaterial = await crypto.subtle.importKey('raw', enc.encode(passphrase), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt: b64d(payload.salt), iterations: 300000, hash: 'SHA-256' },
+    keyMaterial, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(payload.iv) }, key, b64d(payload.data));
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function render(data) {
+  const main = document.getElementById('content');
+  main.textContent = '';
+  document.getElementById('updated').textContent = data.updated || '';
+  for (const s of data.sections) {
+    const sec = el('section');
+    const h2 = el('h2', null, (s.emoji ? s.emoji + ' ' : '') + s.title);
+    const grid = el('div', 'grid');
+    for (const l of s.links) {
+      const card = el('div', 'card');
+      const a = el('a', 'main');
+      a.href = l.url; a.target = '_blank'; a.rel = 'noopener';
+      a.append(el('div', 'name', l.name), el('div', 'desc', l.desc || ''));
+      const meta = el('div', 'meta');
+      if (l.pass) {
+        const b = el('button', 'pw'); b.type = 'button'; b.title = 'Smelltu til að afrita';
+        b.append(el('span', null, 'Aðgangsorð'), el('code', null, l.pass));
+        b.addEventListener('click', async () => {
+          try { await navigator.clipboard.writeText(l.pass); } catch (e) {}
+          b.classList.add('copied'); b.firstChild.textContent = 'Afritað';
+          setTimeout(() => { b.classList.remove('copied'); b.firstChild.textContent = 'Aðgangsorð'; }, 1500);
+        });
+        meta.appendChild(b);
+      } else if (l.login) {
+        meta.appendChild(el('span', 'chip', 'isfast.is innskráning'));
+      } else if (l.open) {
+        meta.appendChild(el('span', 'chip open', 'Opin síða'));
+      }
+      card.append(a, meta);
+      grid.appendChild(card);
+    }
+    sec.append(h2, grid);
+    main.appendChild(sec);
+  }
+  document.getElementById('lock').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+}
+
+async function init() {
+  const payload = await fetch('projects.enc?v=' + Date.now()).then(r => r.json());
+  if (localStorage.getItem(HIDE_KEY) === '1') setHide(true);
+  const saved = localStorage.getItem(STORE_KEY);
+  if (saved) {
+    try { render(await decrypt(payload, saved)); return; }
+    catch (e) { localStorage.removeItem(STORE_KEY); }
+  }
+  document.getElementById('lock').classList.remove('hidden');
+  document.getElementById('pass').focus();
+  document.getElementById('lockform').addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const p = document.getElementById('pass').value.trim();
+    const msg = document.getElementById('lockmsg');
+    msg.textContent = '';
+    try {
+      const data = await decrypt(payload, p);
+      localStorage.setItem(STORE_KEY, p);
+      render(data);
+    } catch (e) {
+      msg.textContent = 'Rangt aðgangsorð';
+    }
+  });
+}
+
+function setHide(on) {
+  document.body.classList.toggle('hidepw', on);
+  document.getElementById('pwtoggle').textContent = on ? 'Sýna aðgangsorð' : 'Fela aðgangsorð';
+  localStorage.setItem(HIDE_KEY, on ? '1' : '0');
+}
+document.getElementById('pwtoggle').addEventListener('click', () => setHide(!document.body.classList.contains('hidepw')));
+
+document.getElementById('filter').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('.card').forEach(card => {
+    card.classList.toggle('hidden', q && !card.textContent.toLowerCase().includes(q));
+  });
+  document.querySelectorAll('section').forEach(sec => {
+    sec.classList.toggle('hidden', !sec.querySelector('.card:not(.hidden)'));
+  });
+});
+
+document.getElementById('lockbtn').addEventListener('click', () => {
+  localStorage.removeItem(STORE_KEY);
+  location.reload();
+});
+
+init();
+</script>
+</body>
+</html>
