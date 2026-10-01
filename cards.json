@@ -1,0 +1,140 @@
+{
+  "updated": "1.10.2026",
+  "sections": [
+    {
+      "title": "Verkefni í vinnslu og tilboð",
+      "emoji": "🏗️",
+      "links": [
+        {
+          "name": "Tækifæravaktin",
+          "desc": "Dagleg vakt yfir tækifærum í fasteignaþróun: mál, umfjöllun og merkingar teymis. Vikulegur mánudagspóstur kemur héðan.",
+          "url": "https://taekifaeravaktin.pages.dev/"
+        },
+        {
+          "name": "Tollhúsið – Næsland · greining",
+          "desc": "Innri greining fyrir tilboð í Tryggvagötu 19: teikningar, valkostakeðja A/B/C/D og reiknivél með sleðum.",
+          "url": "https://tollhusid-naesland.pages.dev/"
+        },
+        {
+          "name": "Tollhúsið – kynning fyrir Næsland",
+          "desc": "Kynningarútgáfan sem samstarfsaðilar hjá Næslandi fá. Sama efni, án innri forsendna.",
+          "url": "https://tollhusid-naesland.pages.dev/kynning/"
+        },
+        {
+          "name": "Þ113 Hamrar – tilboð Stafa",
+          "desc": "Kostnaðaráætlun, rýmistafla og leigumódel fyrir hjúkrunarheimili í Mosfellsbæ. Frestur 9.11.2026.",
+          "url": "https://th113-hamrar.pages.dev/"
+        },
+        {
+          "name": "Reykjaland – innviðamælaborð ÍB317",
+          "desc": "Bæjarhagfræði, vegir og tilboð lóðarhafa fyrir viðræður við Mosfellsbæ. Björn heldur utan um.",
+          "url": "https://reykjaland-innvidir.pages.dev/"
+        },
+        {
+          "name": "Línbergsreitur – markaðs- og virðisgreining",
+          "desc": "Grandagarður/Fiskislóð: markaður, virðislíkan byggingarréttar og rök fyrir breytingu á AR2040.",
+          "url": "https://linbergsreitur-greining.pages.dev/"
+        },
+        {
+          "name": "Lífsgæðakjarni – fjárfestakynning",
+          "desc": "Assisted living í hæsta gæðaflokki (Sóltún 4): kynning, gagnvirkt fjárhagslíkan og samkeppnisgreining.",
+          "url": "https://lifsgaedakjarni.pages.dev/"
+        }
+      ]
+    },
+    {
+      "title": "Hamranes",
+      "emoji": "🏥",
+      "links": [
+        {
+          "name": "Handbók hússins og eiganda",
+          "desc": "Handbók í FSRE-staðalformi (K0–K19), staða gagna, skrár úr Procore/ACC/VBC og PDF-útgáfa.",
+          "url": "https://hamranes-handbok.pages.dev/"
+        },
+        {
+          "name": "Fjárhagslíkan – stjórnarsíða",
+          "desc": "Leiguverð til FSRE, verðmat, IRR og DSCR með gagnvirkum sleðum.",
+          "url": "https://hamranes.pages.dev/"
+        },
+        {
+          "name": "Mánaðarskýrslur",
+          "desc": "Mánaðarskýrslur framkvæmdar nr. 1–8 með gröfum og PDF til niðurhals.",
+          "url": "https://hamranes-manadarskyrsla.pages.dev/"
+        },
+        {
+          "name": "Verkefnastjórnun – mælaborð",
+          "desc": "Verkefnastjórnunarmælaborð Hamraness (Google Apps Script).",
+          "url": "https://script.google.com/a/macros/isfast.is/s/AKfycbyiq-LdrL3R7m6RVWN_suiOUfoDUngCB46aqPSL89NVua6p5L6lXQMEiZzFcgUGxyGrRA/exec",
+          "login": true
+        },
+        {
+          "name": "Hönnun – mælaborð",
+          "desc": "Hönnunarmælaborð Hamraness (Google Apps Script).",
+          "url": "https://script.google.com/a/macros/isfast.is/s/AKfycbySJvRTzUE-189hFxELzrgF_7SsDxevSRxjC8_jgYs2-3VE2VEMXN7qYVdyMoLTQez0/exec",
+          "login": true
+        }
+      ]
+    },
+    {
+      "title": "Rekstur og tól",
+      "emoji": "🧮",
+      "links": [
+        {
+          "name": "Þróunarbók",
+          "desc": "Mælaborð þróunarteymis: staða og kostnaður þróunarverkefna, uppfært á hverri nóttu. Björn þróar síðuna.",
+          "url": "https://throunarbok.pages.dev/"
+        },
+        {
+          "name": "Áætlunarvél ÍF",
+          "desc": "Forsendur inn, kostnaðaráætlun nýbyggingar út í ÍF-sniði (Hannarr + reynslutölur). Excel-hnappur með samantekt og verkþáttum.",
+          "url": "https://aetlunarvel.pages.dev/"
+        },
+        {
+          "name": "Ársreikningar 2025",
+          "desc": "Staða og drög ársreikninga félaganna sex.",
+          "url": "https://arsreikningar-2025.pages.dev/"
+        },
+        {
+          "name": "CFO-mælaborð – rekstur ÍF",
+          "desc": "Fjárhagsyfirlit félaganna úr Business Central (Google Apps Script).",
+          "url": "https://script.google.com/a/macros/isfast.is/s/AKfycbyXfNX0HO2tSzsH7Q2S_Ou5nQbN_ZaYktTx-cbfuJ5IPOHdMiQf_OMJcnq4skmTllUX/exec",
+          "login": true
+        },
+        {
+          "name": "Hyatt Centric – mælaborð",
+          "desc": "Verkefnamælaborð Hyatt Centric (Google Apps Script).",
+          "url": "https://script.google.com/a/macros/isfast.is/s/AKfycbwv0ooyUB7knQGhi6Dqxx6vYdJz-P7Sjbh9513wMzWuPs44OK_EYJZOrW_q0CtBIfxw/exec",
+          "login": true
+        }
+      ]
+    },
+    {
+      "title": "Þekking og kynningar",
+      "emoji": "📚",
+      "links": [
+        {
+          "name": "Gervigreind hjá ÍF – kynning",
+          "desc": "20 mínútna kynning fyrir ÍFJ-hópinn, 16 glærur með glósum.",
+          "url": "https://ai-kynning.pages.dev/"
+        },
+        {
+          "name": "AEC AI Radar",
+          "desc": "Gervigreind í hönnun og byggingariðnaði: rannsóknarradar á tveggja vikna fresti.",
+          "url": "https://gunnar-star.github.io/aec-ai-radar/",
+          "open": true
+        },
+        {
+          "name": "Markaðsgreining 2026 – hjúkrunarheimili",
+          "desc": "Þörf, framboð og spá fyrir hjúkrunarrými á Íslandi.",
+          "url": "https://gunnar-star.github.io/markadsgreining2026/",
+          "open": true
+        },
+        {
+          "name": "isfast.is – úttekt og tillögur",
+          "desc": "Úttekt á vefsíðu félagsins frá ágúst 2026 og tillögur að endurbótum.",
+          "url": "https://vefur-tillaga.pages.dev/"
+        }
+      ]
+    }
+  ]
+}

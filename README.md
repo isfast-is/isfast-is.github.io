@@ -1,33 +1,12 @@
-# isfast-is.github.io
+# isfast-is.github.io → isfast.pages.dev
 
-Lendingarsíða Ísfast-teymisins: allar verkefnasíður, mælaborð og kynningar á einum stað.
+Lendingarsíða Ísfast-teymisins, hýst á Cloudflare Pages á bak við Cloudflare Access.
 
-**Lifandi: https://isfast-is.github.io/** (læst með aðgangsorði teymisins)
+- `index.html` – síðan. Sækir `/api/cards` og birtir aðeins spjöld sem innskráður notandi hefur aðgang að.
+- `functions/api/cards.js` – Pages Function. Staðfestir Access-JWT notandans, les Access-reglurnar
+  gegnum Cloudflare API (vistað í 60 s) og síar `cards.json` eftir þeim. Aðgangsorð og aukareglur
+  fyrir síður utan Access koma úr umhverfisbreytum verkefnisins, aldrei úr repóinu.
+- `cards.json` – nöfn, lýsingar og slóðir spjaldanna (ekkert trúnaðarefni).
+- `projects.json`, `.passphrases.json` – staðbundið, gitignored.
 
-## Hvernig þetta virkar
-
-Kyrrstæð GitHub Pages-síða, ekkert byggingarskref. Listinn yfir síður er **dulkóðaður**:
-
-- `index.html` – síðan. Biður um aðgangsorð einu sinni á hverju tæki (geymt í localStorage),
-  afkóðar í vafranum (PBKDF2 → AES-256-GCM með WebCrypto) og teiknar spjöldin.
-  „Læsa þessu tæki“ í fæti gleymir aðgangsorðinu.
-- `projects.enc` – dulkóðaði listinn (eina gagnaskráin sem er birt)
-- `encrypt.py` – dulkóðar aftur eftir breytingar
-- `projects.json`, `.passphrase` – **aðeins staðbundið, gitignored** (vinnueintak á Mac mini:
-  `~/repos/isfast-is.github.io/`)
-
-## Að bæta við eða fjarlægja síðu
-
-1. Breyta `projects.json` (sections → `links`: `{ "name", "desc", "url", "pass" | "login": true | "open": true }`)
-2. `python3 encrypt.py`
-3. Commit + push `projects.enc` – Pages birtir breytinguna á um það bil mínútu
-
-## Að skipta um aðgangsorð
-
-`python3 encrypt.py "nýtt-aðgangsorð"` (uppfærir líka `.passphrase`), síðan push.
-
-## Öryggislíkan
-
-GitHub Pages-síður eru alltaf opinberlega *afgreiddar*; repo-ið er opið því isfast-is er
-ókeypis org (Pages krefst opins repo-s). Trúnaðurinn liggur í dulkóðuninni: sá sem ekki hefur
-aðgangsorðið sér aðeins læsiskjá. Síðan er `noindex`.
+Stjórnandi (ADMINS) getur skoðað síðuna „eins og“ annar notandi með `?as=netfang`.
