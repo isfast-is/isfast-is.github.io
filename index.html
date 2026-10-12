@@ -7,85 +7,205 @@
 <title>Ísfast – verkefnasíður</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%2312263A%22/><text x=%2250%22 y=%2268%22 font-size=%2252%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22%23C9A227%22 text-anchor=%22middle%22>ÍF</text></svg>">
 <style>
-  :root { --bg:#f4f6f9; --card:#fff; --card-hover:#f7f9fc; --border:#d9e0e8; --text:#12263A; --muted:#5b6b7c; --accent:#1D3A57; --gold:#C9A227; --chip:#EAF1F8; --chip-text:#1D3A57; --error:#b3261e; --ok:#2e7d4f; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#0e1721; --card:#16222f; --card-hover:#1b2938; --border:#2a3a4c; --text:#e8edf2; --muted:#97a6b6; --accent:#8fb6dd; --gold:#E8C468; --chip:#22344a; --chip-text:#cfe3f5; --error:#f28b82; --ok:#7fd1a0; } }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.5; padding:0 1rem 4rem; }
-  .wrap { max-width:1040px; margin:0 auto; }
-  .brand { display:flex; align-items:center; gap:.75rem; padding:1.4rem 0 1.2rem; }
+  :root { --bg:#f4f6f9; --card:#fff; --card-hover:#f7f9fc; --border:#d9e0e8; --text:#12263A; --muted:#5b6b7c; --accent:#1D3A57; --gold:#C9A227; --chip:#EAF1F8; --chip-text:#1D3A57; --error:#b3261e; --ok:#2e7d4f; --warn:#9a6700; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0e1721; --card:#16222f; --card-hover:#1b2938; --border:#2a3a4c; --text:#e8edf2; --muted:#97a6b6; --accent:#8fb6dd; --gold:#E8C468; --chip:#22344a; --chip-text:#cfe3f5; --error:#f28b82; --ok:#7fd1a0; --warn:#e3b341; } }
+  .brand { display:flex; align-items:center; gap:.75rem; padding:.2rem 0 1rem; }
   .brand .mark { width:42px; height:42px; border-radius:10px; background:var(--accent); color:var(--gold); display:grid; place-items:center; font-weight:800; font-size:1.05rem; flex:none; }
   .brand .t1 { font-weight:700; font-size:1.15rem; line-height:1.2; }
   .brand .t2 { color:var(--muted); font-size:.85rem; }
+  .card { border-left:3px solid var(--gold) !important; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; line-height:1.5; padding:2rem 1.25rem 4rem; max-width:1100px; margin:0 auto; }
   header { margin-bottom:1.5rem; }
-  header .intro { color:var(--muted); font-size:.95rem; max-width:62ch; }
-  .tools { display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap; }
-  #filter { flex:1 1 240px; padding:.6rem .9rem; font-size:1rem; color:var(--text); background:var(--card); border:1px solid var(--border); border-radius:10px; outline:none; }
-  #filter:focus { border-color:var(--accent); }
-  .toggle { padding:.6rem .9rem; font-size:.9rem; color:var(--chip-text); background:var(--chip); border:1px solid var(--border); border-radius:10px; cursor:pointer; }
+  h1 { font-size:1.6rem; font-weight:700; letter-spacing:-.02em; }
+  header p { color:var(--muted); font-size:.95rem; margin-top:.25rem; }
+  .tabs { display:flex; gap:.4rem; margin-top:1.1rem; flex-wrap:wrap; }
+  .tab { padding:.5rem .95rem; border-radius:999px; border:1px solid var(--border); background:var(--card); color:var(--muted); cursor:pointer; font-size:.92rem; }
+  .tab.active { color:var(--text); border-color:var(--accent); }
+  .tools { display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap; align-items:center; }
+  input[type=search], input[type=email], input[type=text] { padding:.6rem .9rem; font-size:1rem; color:var(--text); background:var(--card); border:1px solid var(--border); border-radius:10px; outline:none; }
+  input:focus { border-color:var(--accent); }
+  #filter { flex:1 1 240px; }
+  button.btn { padding:.55rem .95rem; font-size:.92rem; border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; }
+  button.btn:hover { border-color:var(--accent); }
+  button.btn.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  button.btn.primary:disabled { opacity:.45; cursor:default; }
+  button.btn.danger { color:var(--error); }
   section { margin-top:2rem; }
   h2 { font-size:.95rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; margin-bottom:.8rem; display:flex; align-items:center; gap:.5rem; }
   h2::after { content:""; flex:1; height:1px; background:var(--border); }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:.8rem; }
-  .card { display:flex; flex-direction:column; background:var(--card); border:1px solid var(--border); border-left:3px solid var(--gold); border-radius:12px; padding:.95rem 1.1rem .85rem; transition:background .12s,border-color .12s,transform .12s; }
-  .card:hover { background:var(--card-hover); border-color:var(--accent); border-left-color:var(--gold); transform:translateY(-1px); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:.8rem; }
+  .card { display:flex; flex-direction:column; background:var(--card); border:1px solid var(--border); border-radius:12px; padding:.95rem 1.1rem .85rem; transition:background .12s,border-color .12s,transform .12s; }
+  .card:hover { background:var(--card-hover); border-color:var(--accent); transform:translateY(-1px); }
   .card a.main { text-decoration:none; color:inherit; display:block; flex:1; }
-  .card .name { font-weight:650; font-size:1.02rem; }
-  .card .name::after { content:" ↗"; color:var(--muted); font-size:.8em; }
-  .card .desc { color:var(--muted); font-size:.86rem; margin-top:.25rem; }
-  .meta { display:flex; align-items:center; gap:.5rem; margin-top:.7rem; flex-wrap:wrap; }
-  .chip { font-size:.8rem; padding:.2rem .6rem; border-radius:999px; background:var(--chip); color:var(--chip-text); border:1px solid transparent; }
+  .card .name { font-weight:600; font-size:1.02rem; }
+  .card .desc { color:var(--muted); font-size:.86rem; margin-top:.2rem; }
+  .meta { display:flex; align-items:center; gap:.5rem; margin-top:.65rem; flex-wrap:wrap; }
+  .chip { font-size:.78rem; padding:.15rem .6rem; border-radius:999px; background:var(--chip); color:var(--chip-text); border:1px solid transparent; }
   .chip.open { background:transparent; border-color:var(--border); color:var(--muted); }
-  .pw { display:inline-flex; align-items:center; gap:.4rem; font-size:.82rem; color:var(--muted); cursor:pointer; background:none; border:1px solid var(--border); border-radius:8px; padding:.2rem .55rem; }
+  .pw { display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; color:var(--muted); cursor:pointer; background:none; border:1px solid var(--border); border-radius:8px; padding:.15rem .55rem; }
   .pw:hover { border-color:var(--accent); color:var(--text); }
-  .pw code { font-family:ui-monospace,Menlo,monospace; font-size:.86rem; color:var(--text); letter-spacing:.02em; }
+  .pw code { font-family:ui-monospace,Menlo,monospace; font-size:.85rem; color:var(--text); }
   .pw.copied { border-color:var(--ok); color:var(--ok); }
   body.hidepw .pw code { filter:blur(5px); user-select:none; }
-  .notice { margin:3rem auto; max-width:520px; text-align:center; color:var(--muted); }
+  .notice { margin:3rem auto; max-width:560px; text-align:center; color:var(--muted); }
   .notice a { color:var(--accent); }
   .viewas { font-size:.86rem; color:var(--muted); margin-top:.6rem; }
-  .viewas input { font-size:.86rem; padding:.25rem .5rem; border:1px solid var(--border); border-radius:6px; background:var(--card); color:var(--text); }
+  .viewas input { font-size:.86rem; padding:.25rem .5rem; border-radius:6px; }
   footer { margin-top:3rem; padding-top:1.25rem; border-top:1px solid var(--border); color:var(--muted); font-size:.86rem; display:flex; justify-content:space-between; flex-wrap:wrap; gap:.5rem; }
   footer a { color:var(--accent); text-decoration:none; }
-  footer a:hover { text-decoration:underline; }
   .hidden { display:none !important; }
+  /* admin */
+  .rows { display:flex; flex-direction:column; gap:.5rem; margin-top:1rem; }
+  .row { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:.7rem .9rem; display:grid; grid-template-columns:minmax(180px,1.2fr) 2fr auto; gap:.6rem 1rem; align-items:start; }
+  @media (max-width:720px) { .row { grid-template-columns:1fr; } }
+  .row .title { font-weight:600; }
+  .row .dom { color:var(--muted); font-size:.78rem; display:block; }
+  .row .tools { margin-top:0; gap:.4rem; }
+  .row .tools .btn { font-size:.78rem; padding:.25rem .55rem; }
+  .people { display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; }
+  .pchip { display:inline-flex; align-items:center; gap:.3rem; font-size:.82rem; padding:.15rem .3rem .15rem .6rem; border-radius:999px; background:var(--chip); color:var(--chip-text); }
+  .pchip.owner { background:transparent; border:1px solid var(--border); color:var(--muted); padding-right:.6rem; }
+  .pchip button { background:none; border:none; color:inherit; cursor:pointer; font-size:.95rem; line-height:1; padding:0 .25rem; border-radius:999px; }
+  .pchip button:hover { color:var(--error); }
+  .addp { font-size:.82rem; padding:.2rem .5rem; border:1px dashed var(--border); border-radius:999px; background:transparent; color:var(--text); width:11rem; }
+  .addp:focus { border-style:solid; width:16rem; }
+  .pv { display:grid; grid-template-columns:minmax(220px,1fr) 2fr; gap:1rem; margin-top:1rem; }
+  @media (max-width:720px) { .pv { grid-template-columns:1fr; } }
+  .peoplenav { display:flex; flex-direction:column; gap:.3rem; margin-top:.6rem; }
+  .peoplenav button { text-align:left; padding:.5rem .7rem; border-radius:10px; border:1px solid var(--border); background:var(--card); color:var(--text); cursor:pointer; font-size:.9rem; display:flex; justify-content:space-between; gap:.5rem; }
+  .peoplenav button.active { border-color:var(--accent); }
+  .peoplenav .n { color:var(--muted); font-size:.8rem; }
+  .personhead { font-weight:600; margin-top:.2rem; min-height:1.4em; }
+  .siterow { display:flex; align-items:center; gap:.7rem; background:var(--card); border:1px solid var(--border); border-radius:10px; padding:.45rem .8rem; }
+  .siterow input { width:1.1rem; height:1.1rem; accent-color:var(--accent); }
+  .siterow .dom { color:var(--muted); font-size:.78rem; margin-left:auto; }
+  .siterow.changed { border-color:var(--warn); }
+  .admin-intro { color:var(--muted); font-size:.92rem; max-width:70ch; }
+  .matrix-wrap { overflow:auto; border:1px solid var(--border); border-radius:12px; margin-top:1rem; background:var(--card); }
+  table.matrix { border-collapse:separate; border-spacing:0; min-width:100%; font-size:.9rem; }
+  .matrix th, .matrix td { padding:.5rem .6rem; border-bottom:1px solid var(--border); white-space:nowrap; vertical-align:middle; }
+  .matrix thead th { position:sticky; top:0; background:var(--card); z-index:2; font-weight:600; text-align:center; }
+  .matrix thead th.site { text-align:left; left:0; z-index:3; }
+  .matrix tbody th { position:sticky; left:0; background:var(--card); text-align:left; font-weight:500; z-index:1; }
+  .matrix tbody th .dom { display:block; color:var(--muted); font-size:.78rem; font-weight:400; }
+  .matrix td.cell { text-align:center; }
+  .matrix input[type=checkbox] { width:1.1rem; height:1.1rem; accent-color:var(--accent); cursor:pointer; }
+  .matrix input[type=checkbox]:disabled { cursor:default; opacity:.6; }
+  .matrix tr.dirty th { color:var(--warn); }
+  .person { display:inline-flex; flex-direction:column; align-items:center; gap:.1rem; }
+  .person .rm { font-size:.75rem; color:var(--muted); cursor:pointer; background:none; border:none; }
+  .person .rm:hover { color:var(--error); }
+  .matrix td.actions { text-align:right; }
+  .matrix td.actions button { font-size:.78rem; padding:.2rem .55rem; }
+  .filterbar { display:flex; gap:.6rem; align-items:center; flex-wrap:wrap; margin-top:.9rem; }
+  .chips { display:flex; gap:.35rem; flex-wrap:wrap; }
+  .chips .tab { padding:.3rem .75rem; font-size:.85rem; }
+  #sitefilter { flex:1 1 200px; padding:.4rem .7rem; font-size:.9rem; }
+  .show { display:inline-flex; align-items:center; }
+  .show input { width:1.1rem; height:1.1rem; accent-color:var(--ok); cursor:pointer; }
+  .muted { color:var(--muted); font-size:.8rem; }
+  .matrix th.showcol, .matrix td.showcol { border-right:1px solid var(--border); }
+  .addrow { display:flex; gap:.6rem; margin-top:1rem; flex-wrap:wrap; align-items:center; }
+  .status { margin-top:.8rem; font-size:.88rem; min-height:1.3em; }
+  .status.err { color:var(--error); } .status.ok { color:var(--ok); }
+  .openlist { margin-top:1rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:.6rem; }
+  .openlist .card { padding:.7rem .9rem; }
+  .openlist .card .name { font-size:.95rem; }
+  .openlist .card .url { color:var(--muted); font-size:.8rem; word-break:break-all; }
+  details.help { margin-top:1.25rem; color:var(--muted); font-size:.9rem; }
+  details.help summary { cursor:pointer; color:var(--text); }
+  details.help li { margin:.3rem 0 .3rem 1.2rem; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="brand">
-    <div class="mark">ÍF</div>
-    <div>
-      <div class="t1">Íslenskar fasteignir – verkefnasíður</div>
-      <div class="t2">Vinnusíður, mælaborð og kynningar sem þú hefur aðgang að</div>
+<div id="notice" class="notice hidden"></div>
+<div id="app" class="hidden">
+  <header>
+    <div class="brand"><div class="mark">ÍF</div><div><div class="t1">Íslenskar fasteignir – verkefnasíður</div><div class="t2">Vinnusíður, mælaborð og kynningar sem þú hefur aðgang að</div></div></div>
+    <p>Hér birtast aðeins síðurnar sem þú hefur aðgang að. Þú ert þegar skráð(ur) inn, svo flestar opnast beint. Síður merktar <span class="chip">isfast.is innskráning</span> opnast með Google-reikningi félagsins.</p>
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="cards" type="button">Síður</button>
+      <button class="tab hidden" data-tab="admin" id="admintab" type="button">Aðgangsstýring</button>
     </div>
-  </div>
-  <div id="notice" class="notice hidden"></div>
-  <div id="app" class="hidden">
-    <header>
-      <p class="intro">Hér birtast aðeins þær síður sem þú hefur aðgang að. Þú ert þegar skráð(ur) inn, svo flestar opnast beint. Þar sem aðgangsorð stendur enn við spjald smellirðu á það til að afrita. Síður merktar <span class="chip">isfast.is innskráning</span> opnast með Google-reikningi félagsins.</p>
-      <div class="tools">
-        <input id="filter" type="search" placeholder="Leita…" autocomplete="off">
-        <button class="toggle" id="pwtoggle" type="button">Fela aðgangsorð</button>
-      </div>
-      <div id="viewas" class="viewas hidden">Sjá eins og: <input id="asinput" type="email" placeholder="netfang@isfast.is"> <button class="toggle" id="asbtn" type="button">Sýna</button> <a id="asreset" href="/" class="hidden">· sjálfan mig</a></div>
-    </header>
+  </header>
+
+  <div id="view-cards">
+    <div class="tools">
+      <input id="filter" type="search" placeholder="Leita…" autocomplete="off">
+      <button class="btn" id="pwtoggle" type="button">Fela aðgangsorð</button>
+    </div>
+    <div id="viewas" class="viewas hidden">Sjá eins og: <input id="asinput" type="email" placeholder="netfang"> <button class="btn" id="asbtn" type="button">Sýna</button> <a id="asreset" href="/" class="hidden">· sjálfan mig</a></div>
     <main id="content"></main>
-    <footer>
-      <span>Uppfært <span id="updated"></span> · skráð(ur) inn sem <span id="who"></span> · <a href="/cdn-cgi/access/logout">Útskrá</a></span>
-      <span>Íslenskar fasteignir ehf.</span>
-    </footer>
   </div>
+
+  <div id="view-admin" class="hidden">
+    <section>
+      <p class="admin-intro">Hér ræður þú hverjir komast inn á hverja síðu. Netfang (eða heilt lén, @firma.is) á síðu þýðir að viðkomandi opnar hana með Google-innskráningu (isfast.is) eða kóða í tölvupósti. Þitt eigið netfang er alltaf með og ekki hægt að taka út. „Birta“ ræður hvort spjaldið sést á lendingarsíðunni.</p>
+      <div class="tabs" id="admtabs" style="margin-top:.9rem">
+        <button class="tab active" data-view="site" type="button">Eftir síðu</button>
+        <button class="tab" data-view="person" type="button">Eftir aðila</button>
+        <span style="flex:1"></span>
+        <button class="btn" id="reload" type="button">Endurlesa</button>
+      </div>
+      <div class="filterbar"><div class="chips" id="secchips"></div><input id="sitefilter" type="search" placeholder="Leita að síðu…" autocomplete="off"></div>
+      <div class="status" id="astatus"></div>
+      <datalist id="peoplelist"></datalist>
+      <div id="siteview" class="rows"></div>
+      <div id="personview" class="hidden">
+        <div class="pv">
+          <div class="pv-left">
+            <div class="addrow" style="margin-top:0"><input id="newperson" type="text" placeholder="nýtt netfang eða @lén.is" autocomplete="off" style="flex:1 1 180px"><button class="btn" id="addperson" type="button">Bæta við</button></div>
+            <div id="peoplenav" class="peoplenav"></div>
+          </div>
+          <div class="pv-right">
+            <div id="personhead" class="personhead"></div>
+            <div id="personsites" class="rows"></div>
+            <div class="addrow"><button class="btn primary" id="save" type="button" disabled>Vista breytingar</button><button class="btn danger" id="removeall" type="button">Taka út af öllum síðum</button></div>
+          </div>
+        </div>
+      </div>
+      <details class="help">
+        <summary>Hvernig virkar þetta?</summary>
+        <ul>
+          <li><b>Eftir síðu:</b> hver lína er síða með merkjum fyrir þá sem hafa aðgang. × tekur aðila út, reiturinn „+ netfang“ bætir við. Vistast um leið.</li>
+          <li><b>Eftir aðila:</b> veldu aðila til vinstri, hakaðu við síðurnar hans og smelltu Vista. „Taka út af öllum síðum“ fjarlægir hann alls staðar.</li>
+          <li>Ný netföng þarf ekki að „bjóða“: viðkomandi opnar slóðina og velur Google (isfast.is) eða netfang + sex stafa kóða í pósti, og er inni í 30 daga. „Afrita boð“ gefur texta til að senda.</li>
+          <li>„Opna“ fjarlægir læsinguna af síðu (hún verður opin öllum). „Læsa“ á opinni síðu setur læsingu með þér einum.</li>
+          <li>„Birta“ ræður hvort spjaldið sést á lendingarsíðunni (fyrir alla). Síðan sjálf og aðgangur að henni breytast ekki.</li>
+          <li>Sannleikurinn býr í Cloudflare Access, ekki í þessari síðu. Það sem þú sérð hér er lesið beint þaðan.</li>
+        </ul>
+      </details>
+    </section>
+    <section id="opensec">
+      <h2>Opnar síður (án læsingar)</h2>
+      <div class="openlist" id="openlist"></div>
+    </section>
+    <section id="othersec" class="hidden">
+      <h2>Önnur spjöld (Apps Script-mælaborð o.fl.)</h2>
+      <div class="openlist" id="otherlist"></div>
+    </section>
+  </div>
+
+  <footer>
+    <span>Uppfært <span id="updated"></span> · skráð(ur) inn sem <span id="who"></span> · <a href="/cdn-cgi/access/logout">Útskrá</a></span>
+    <span>Íslenskar fasteignir ehf.</span>
+  </footer>
 </div>
 <script>
-const HIDE_KEY = 'if_lp_hidepw';
-function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+const HIDE_KEY = 'lp_hidepw';
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const $ = id => document.getElementById(id);
+let ME = null;
 
-function render(data) {
-  const main = document.getElementById('content'); main.textContent = '';
-  document.getElementById('updated').textContent = data.updated || '';
-  document.getElementById('who').textContent = data.viewer === data.email ? data.email : `${data.viewer} (sýn ${data.email})`;
-  if (data.isAdmin) { document.getElementById('viewas').classList.remove('hidden'); if (data.viewer !== data.email) document.getElementById('asreset').classList.remove('hidden'); }
-  if (!data.sections.length) { main.appendChild(el('p', 'notice', 'Engar síður eru skráðar á þig enn. Hafðu samband við Gunnar.')); }
+/* ---------- cards ---------- */
+function renderCards(data) {
+  ME = data;
+  const main = $('content'); main.textContent = '';
+  $('updated').textContent = data.updated || '';
+  $('who').textContent = data.viewer === data.email ? data.email : `${data.viewer} (sýn ${data.email})`;
+  if (data.isAdmin) { $('viewas').classList.remove('hidden'); $('admintab').classList.remove('hidden'); if (data.viewer !== data.email) $('asreset').classList.remove('hidden'); }
+  if (!data.sections.length) main.appendChild(el('p', 'notice', 'Engar síður eru skráðar á þig enn. Hafðu samband við Gunnar.'));
   for (const s of data.sections) {
     const sec = el('section'); sec.append(el('h2', null, (s.emoji ? s.emoji + ' ' : '') + s.title));
     const grid = el('div', 'grid');
@@ -99,34 +219,230 @@ function render(data) {
         b.append(el('span', null, 'Aðgangsorð'), el('code', null, l.pass));
         b.addEventListener('click', async () => { try { await navigator.clipboard.writeText(l.pass); } catch (e) {} b.classList.add('copied'); b.firstChild.textContent = 'Afritað'; setTimeout(() => { b.classList.remove('copied'); b.firstChild.textContent = 'Aðgangsorð'; }, 1500); });
         meta.appendChild(b);
-      } else if (l.login) meta.appendChild(el('span', 'chip', 'isfast.is innskráning'));
-      else if (l.open) meta.appendChild(el('span', 'chip open', 'Opin síða'));
+      }
+      if (l.login) meta.appendChild(el('span', 'chip', 'isfast.is innskráning'));
+      else if (l.vpn) meta.appendChild(el('span', 'chip open', 'Aðeins um Tailscale'));
+      else if (l.gate === 'open') meta.appendChild(el('span', 'chip open', 'Opin síða'));
       card.append(a, meta); grid.appendChild(card);
     }
     sec.appendChild(grid); main.appendChild(sec);
   }
-  document.getElementById('app').classList.remove('hidden');
+  $('app').classList.remove('hidden');
+}
+function setHide(on) { document.body.classList.toggle('hidepw', on); $('pwtoggle').textContent = on ? 'Sýna aðgangsorð' : 'Fela aðgangsorð'; try { localStorage.setItem(HIDE_KEY, on ? '1' : '0'); } catch (e) {} }
+$('pwtoggle').addEventListener('click', () => setHide(!document.body.classList.contains('hidepw')));
+$('filter').addEventListener('input', e => {
+  const q = e.target.value.trim().toLowerCase();
+  document.querySelectorAll('#content .card').forEach(c => c.classList.toggle('hidden', q && !c.textContent.toLowerCase().includes(q)));
+  document.querySelectorAll('#content section').forEach(s => s.classList.toggle('hidden', !s.querySelector('.card:not(.hidden)')));
+});
+$('asbtn').addEventListener('click', () => { const v = $('asinput').value.trim(); if (v) location.search = '?as=' + encodeURIComponent(v); });
+
+async function refreshCards() {
+  try { const r = await fetch('/api/cards' + location.search + (location.search ? '&' : '?') + 'fresh=1', { cache: 'no-store' }); if (r.ok) renderCards(await r.json()); } catch (e) {}
+}
+/* ---------- tabs ---------- */
+$('tabs').addEventListener('click', e => {
+  const t = e.target.closest('.tab'); if (!t) return;
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === t));
+  $('view-cards').classList.toggle('hidden', t.dataset.tab !== 'cards');
+  $('view-admin').classList.toggle('hidden', t.dataset.tab !== 'admin');
+  if (t.dataset.tab === 'admin' && !ADMIN.loaded) loadAdmin();
+  if (t.dataset.tab === 'cards' && ADMIN.loaded) refreshCards();
+  history.replaceState(null, '', t.dataset.tab === 'admin' ? '#adgangur' : location.pathname);
+});
+
+/* ---------- admin ---------- */
+const ADMIN = { loaded: false, sites: [], people: [], cards: [], state: {}, dirty: new Set(), owner: null, hidden: new Set(), view: 'site', person: null, pstate: null };
+const status = (msg, cls) => { const s = $('astatus'); s.textContent = msg || ''; s.className = 'status' + (cls ? ' ' + cls : ''); };
+const isPerson = v => /^(@[a-z0-9.-]+\.[a-z]{2,}|[^@\s]+@[a-z0-9.-]+\.[a-z]{2,})$/.test(v);
+function siteCard(site) {
+  for (const c of ADMIN.cards) { try { const u = new URL(c.url); const p = u.pathname.replace(/\/+$/, ''); if (site.domains.some(d => d === u.host || d === u.host + p)) return c; } catch (e) {} }
+  return null;
+}
+const siteLabel = site => (siteCard(site) || {}).name || site.name;
+const siteSection = site => (siteCard(site) || {}).section || 'Annað';
+function siteUrl(site) { const d = site.domains.find(x => !x.startsWith('*.') && x.endsWith('.isfast.is')) || site.domains.find(x => !x.startsWith('*.')) || site.domains[0]; return 'https://' + d + (d.includes('/') ? '' : '/'); }
+const inviteText = s => `${siteLabel(s)}: ${siteUrl(s)}\nÞú skráir þig inn með isfast.is-Google-reikningi, eða slærð inn netfangið þitt og færð sex stafa kóða í tölvupósti. Innskráningin gildir í 30 daga.`;
+async function copyBtn(btn, text, label) { try { await navigator.clipboard.writeText(text); btn.textContent = 'Afritað'; setTimeout(() => btn.textContent = label, 1500); } catch (e) {} }
+
+async function loadAdmin() {
+  status('Les aðgangsreglur…');
+  try {
+    const r = await fetch('/api/admin/access', { cache: 'no-store' });
+    if (!r.ok) throw new Error((await r.json()).error || r.status);
+    applySnapshot(await r.json()); status('');
+  } catch (e) { status('Villa: ' + e.message, 'err'); }
+}
+function applySnapshot(snap) {
+  ADMIN.loaded = true; ADMIN.sites = snap.sites; ADMIN.cards = snap.cards; ADMIN.owner = ME.email; ADMIN.hidden = new Set(snap.hidden || []);
+  const known = new Set([ADMIN.owner, ...snap.people, ...ADMIN.people]); ADMIN.people = [ADMIN.owner, ...[...known].filter(p => p !== ADMIN.owner).sort()];
+  ADMIN.state = {}; for (const s of snap.sites) ADMIN.state[s.appId] = new Set(s.include);
+  ADMIN.dirty.clear(); ADMIN.pstate = null;
+  renderAdmin();
+}
+async function post(body) {
+  const r = await fetch('/api/admin/access', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+  const j = await r.json(); if (!r.ok) throw new Error(j.error || r.status); return j;
+}
+async function setSite(site, include, msg) {
+  status('Vista…');
+  try { const keep = ADMIN.people.slice(); applySnapshot(await post({ action: 'set', appId: site.appId, include })); for (const p of keep) if (!ADMIN.people.includes(p)) ADMIN.people.push(p); renderAdmin(); status(msg || 'Vistað. Virkar innan mínútu.', 'ok'); }
+  catch (e) { status('Villa við vistun: ' + e.message, 'err'); }
 }
 
-function setHide(on) { document.body.classList.toggle('hidepw', on); document.getElementById('pwtoggle').textContent = on ? 'Sýna aðgangsorð' : 'Fela aðgangsorð'; try { localStorage.setItem(HIDE_KEY, on ? '1' : '0'); } catch (e) {} }
-document.getElementById('pwtoggle').addEventListener('click', () => setHide(!document.body.classList.contains('hidepw')));
-document.getElementById('filter').addEventListener('input', e => {
-  const q = e.target.value.trim().toLowerCase();
-  document.querySelectorAll('.card').forEach(c => c.classList.toggle('hidden', q && !c.textContent.toLowerCase().includes(q)));
-  document.querySelectorAll('section').forEach(s => s.classList.toggle('hidden', !s.querySelector('.card:not(.hidden)')));
-});
-document.getElementById('asbtn').addEventListener('click', () => { const v = document.getElementById('asinput').value.trim(); if (v) location.search = '?as=' + encodeURIComponent(v); });
+/* filters (shared by both views) */
+const FILTER = { section: 'Allar', q: '' };
+function renderChips() {
+  const box = $('secchips'); box.textContent = '';
+  for (const s of ['Allar', ...new Set(ADMIN.sites.map(siteSection))]) {
+    const b = el('button', 'tab' + (FILTER.section === s ? ' active' : ''), s); b.type = 'button';
+    b.addEventListener('click', () => { FILTER.section = s; renderAdmin(); }); box.appendChild(b);
+  }
+}
+function visibleSites() {
+  const q = FILTER.q.trim().toLowerCase();
+  return ADMIN.sites.filter(s => (FILTER.section === 'Allar' || siteSection(s) === FILTER.section) && (!q || (siteLabel(s) + ' ' + s.domains.join(' ')).toLowerCase().includes(q)));
+}
+function renderAdmin() {
+  renderChips();
+  $('peoplelist').textContent = ''; for (const p of ADMIN.people) { const o = el('option'); o.value = p; $('peoplelist').appendChild(o); }
+  $('siteview').classList.toggle('hidden', ADMIN.view !== 'site'); $('personview').classList.toggle('hidden', ADMIN.view !== 'person');
+  document.querySelectorAll('#admtabs .tab').forEach(t => t.classList.toggle('active', t.dataset.view === ADMIN.view));
+  if (ADMIN.view === 'site') renderSiteView(); else renderPersonView();
+  renderOpen();
+}
 
+/* ---- view 1: by site ---- */
+function renderSiteView() {
+  const box = $('siteview'); box.textContent = '';
+  for (const s of visibleSites()) {
+    const row = el('div', 'row');
+    const left = el('div'); const card = siteCard(s);
+    left.append(el('div', 'title', siteLabel(s)), el('span', 'dom', s.domains.filter(d => !d.startsWith('*.')).join(' · ')));
+    if (s.policyCount > 1) left.appendChild(el('span', 'dom', '⚠ ' + s.policyCount + ' reglur – aðeins fyrsta er sýnd'));
+    const people = el('div', 'people');
+    for (const p of [...ADMIN.state[s.appId]].sort((x, y) => x === ADMIN.owner ? -1 : y === ADMIN.owner ? 1 : x.localeCompare(y))) {
+      const chip = el('span', 'pchip' + (p === ADMIN.owner ? ' owner' : '')); chip.appendChild(el('span', null, p));
+      if (p !== ADMIN.owner) { const x = el('button', null, '×'); x.type = 'button'; x.title = 'Taka ' + p + ' út af þessari síðu'; x.addEventListener('click', () => { const inc = [...ADMIN.state[s.appId]].filter(v => v !== p); setSite(s, inc, p + ' tekin(n) út af ' + siteLabel(s) + '.'); }); chip.appendChild(x); }
+      people.appendChild(chip);
+    }
+    const add = el('input', 'addp'); add.placeholder = '+ netfang eða @lén'; add.setAttribute('list', 'peoplelist'); add.autocomplete = 'off';
+    const commit = () => { const v = add.value.trim().toLowerCase(); if (!v) return; if (!isPerson(v)) { status('Skrifaðu netfang (nafn@lén.is) eða lén (@lén.is).', 'err'); return; } if (ADMIN.state[s.appId].has(v)) { add.value = ''; return; } if (!ADMIN.people.includes(v)) ADMIN.people.push(v); setSite(s, [...ADMIN.state[s.appId], v], v + ' hefur nú aðgang að ' + siteLabel(s) + '.'); };
+    add.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }); add.addEventListener('change', commit);
+    people.appendChild(add);
+    const tools = el('div', 'tools');
+    if (card) { tools.appendChild(showToggle(card)); tools.appendChild(el('span', 'muted', 'birta')); }
+    const inv = el('button', 'btn', 'Afrita boð'); inv.type = 'button'; inv.addEventListener('click', () => copyBtn(inv, inviteText(s), 'Afrita boð'));
+    const un = el('button', 'btn danger', 'Opna'); un.type = 'button'; un.title = 'Fjarlægja læsinguna – síðan verður opin öllum'; un.addEventListener('click', () => unlock(s));
+    tools.append(inv, un);
+    row.append(left, people, tools); box.appendChild(row);
+  }
+  if (!box.children.length) box.appendChild(el('p', 'muted', 'Engin síða passar við síuna.'));
+}
+
+/* ---- view 2: by person ---- */
+function renderPersonView() {
+  const nav = $('peoplenav'); nav.textContent = '';
+  if (!ADMIN.person || !ADMIN.people.includes(ADMIN.person)) ADMIN.person = ADMIN.people.find(p => p !== ADMIN.owner) || null;
+  for (const p of ADMIN.people) {
+    if (p === ADMIN.owner) continue;
+    const n = ADMIN.sites.filter(s => ADMIN.state[s.appId].has(p)).length;
+    const b = el('button', ADMIN.person === p ? 'active' : ''); b.type = 'button'; b.append(el('span', null, p), el('span', 'n', n + (n === 1 ? ' síða' : ' síður')));
+    b.addEventListener('click', () => { if (ADMIN.dirty.size && !confirm('Henda óvistuðum breytingum?')) return; ADMIN.person = p; ADMIN.pstate = null; ADMIN.dirty.clear(); renderPersonView(); });
+    nav.appendChild(b);
+  }
+  if (!nav.children.length) nav.appendChild(el('p', 'muted', 'Enginn annar en þú hefur aðgang enn. Skrifaðu netfang hér fyrir ofan.'));
+  const box = $('personsites'); box.textContent = ''; $('personhead').textContent = ADMIN.person ? ADMIN.person + ' – hakaðu við síðurnar sem hann/hún á að sjá' : '';
+  $('removeall').classList.toggle('hidden', !ADMIN.person);
+  if (!ADMIN.person) { $('save').disabled = true; return; }
+  if (!ADMIN.pstate) { ADMIN.pstate = {}; for (const s of ADMIN.sites) ADMIN.pstate[s.appId] = ADMIN.state[s.appId].has(ADMIN.person); }
+  for (const s of visibleSites()) {
+    const r = el('label', 'siterow'); const cb = el('input'); cb.type = 'checkbox'; cb.checked = ADMIN.pstate[s.appId];
+    cb.addEventListener('change', () => { ADMIN.pstate[s.appId] = cb.checked; if (cb.checked === ADMIN.state[s.appId].has(ADMIN.person)) ADMIN.dirty.delete(s.appId); else ADMIN.dirty.add(s.appId); r.classList.toggle('changed', ADMIN.dirty.has(s.appId)); $('save').disabled = ADMIN.dirty.size === 0; status(ADMIN.dirty.size ? ADMIN.dirty.size + ' óvistuð breyting(ar)' : '', 'warn'); });
+    r.classList.toggle('changed', ADMIN.dirty.has(s.appId));
+    r.append(cb, el('span', null, siteLabel(s)), el('span', 'dom', s.domains.filter(d => !d.startsWith('*.') && d.endsWith('.isfast.is')).join(' ') || s.domains[0]));
+    box.appendChild(r);
+  }
+  $('save').disabled = ADMIN.dirty.size === 0;
+}
+async function savePerson() {
+  const ids = [...ADMIN.dirty]; if (!ids.length || !ADMIN.person) return; $('save').disabled = true; let n = 0, snap = null;
+  for (const id of ids) {
+    status(`Vista ${++n} af ${ids.length}…`);
+    const inc = new Set(ADMIN.state[id]); ADMIN.pstate[id] ? inc.add(ADMIN.person) : inc.delete(ADMIN.person);
+    try { snap = await post({ action: 'set', appId: id, include: [...inc] }); ADMIN.state[id] = new Set((snap.sites.find(s => s.appId === id) || {}).include || [...inc]); ADMIN.dirty.delete(id); }
+    catch (e) { status('Villa við vistun: ' + e.message, 'err'); $('save').disabled = false; return; }
+  }
+  const keep = ADMIN.people.slice(), person = ADMIN.person; applySnapshot(snap); for (const p of keep) if (!ADMIN.people.includes(p)) ADMIN.people.push(p); ADMIN.person = person; renderAdmin();
+  status('Vistað. Virkar innan mínútu.', 'ok');
+}
+async function removeAll() {
+  const p = ADMIN.person; if (!p || !confirm('Taka ' + p + ' út af öllum síðum?')) return;
+  const ids = ADMIN.sites.filter(s => ADMIN.state[s.appId].has(p)).map(s => s.appId); let snap = null, n = 0;
+  for (const id of ids) { status(`Tek út ${++n} af ${ids.length}…`); try { snap = await post({ action: 'set', appId: id, include: [...ADMIN.state[id]].filter(v => v !== p) }); } catch (e) { status('Villa: ' + e.message, 'err'); return; } }
+  if (snap) applySnapshot(snap); else renderAdmin(); ADMIN.person = null; renderAdmin(); status(p + ' hefur engan aðgang lengur.', 'ok');
+}
+function addPerson(raw) {
+  const v = raw.trim().toLowerCase();
+  if (!isPerson(v)) { status('Skrifaðu netfang (nafn@lén.is) eða lén (@lén.is).', 'err'); return; }
+  if (!ADMIN.people.includes(v)) ADMIN.people.push(v);
+  $('newperson').value = ''; ADMIN.person = v; ADMIN.pstate = null; ADMIN.dirty.clear(); renderAdmin(); status('Hakaðu við síðurnar sem ' + v + ' á að sjá og smelltu Vista.', 'ok');
+}
+
+/* ---- shared: Birta toggle, unlock/lock, open + other lists ---- */
+function showToggle(card) {
+  const w = el('label', 'show'); const cb = el('input'); cb.type = 'checkbox'; cb.checked = !ADMIN.hidden.has(card.url); cb.title = 'Birta spjaldið á lendingarsíðunni';
+  cb.addEventListener('change', async () => { cb.disabled = true; status(cb.checked ? 'Birti…' : 'Fel…'); try { const keep = ADMIN.people.slice(), person = ADMIN.person; applySnapshot(await post({ action: 'visibility', url: card.url, show: cb.checked })); for (const p of keep) if (!ADMIN.people.includes(p)) ADMIN.people.push(p); ADMIN.person = person; renderAdmin(); refreshCards(); status(cb.checked ? 'Spjaldið birtist nú á lendingarsíðunni.' : 'Spjaldið er falið á lendingarsíðunni (síðan sjálf er óbreytt).', 'ok'); } catch (e) { cb.checked = !cb.checked; cb.disabled = false; status('Villa: ' + e.message, 'err'); } });
+  w.append(cb); return w;
+}
+async function unlock(s) {
+  if (!confirm('Opna „' + siteLabel(s) + '“ fyrir öllum? Læsingin verður fjarlægð.')) return;
+  status('Opna…'); try { applySnapshot(await post({ action: 'unlock', appId: s.appId })); status('Síðan er nú opin.', 'ok'); } catch (e) { status('Villa: ' + e.message, 'err'); }
+}
+async function lock(card) {
+  if (!confirm('Læsa „' + card.name + '“? Aðeins þú hefur aðgang þar til þú bætir fleirum við.')) return;
+  status('Læsi…'); try { applySnapshot(await post({ action: 'lock', url: card.url, name: card.name, include: [] })); status('Læst. Bættu nú við þeim sem eiga að komast inn.', 'ok'); } catch (e) { status('Villa: ' + e.message, 'err'); }
+}
+function renderOpen() {
+  const box = $('openlist'); box.textContent = '';
+  const locked = new Set(ADMIN.sites.flatMap(s => s.domains));
+  const own = c => { try { const u = new URL(c.url); return (u.host.endsWith('.pages.dev') || u.host.endsWith('.isfast.is')) && !c.ext; } catch (e) { return false; } };
+  const open = ADMIN.cards.filter(c => own(c) && !ADMIN.sites.some(s => siteCard(s) && siteCard(s).url === c.url));
+  $('opensec').classList.toggle('hidden', open.length === 0);
+  for (const c of open) {
+    const card = el('div', 'card'); card.append(el('div', 'name', c.name), el('div', 'url', c.url));
+    const meta = el('div', 'meta'); const b = el('button', 'btn', 'Læsa'); b.type = 'button'; b.addEventListener('click', () => lock(c)); meta.append(b, showToggle(c), el('span', 'muted', 'birta')); card.appendChild(meta); box.appendChild(card);
+  }
+  const obox = $('otherlist'); obox.textContent = '';
+  const covered = new Set(ADMIN.sites.map(s => siteCard(s)).filter(Boolean).map(c => c.url));
+  const others = ADMIN.cards.filter(c => !covered.has(c.url) && !own(c));
+  $('othersec').classList.toggle('hidden', others.length === 0);
+  for (const c of others) {
+    const card = el('div', 'card'); card.append(el('div', 'name', c.name), el('div', 'url', c.url));
+    const meta = el('div', 'meta'); meta.append(showToggle(c), el('span', 'muted', 'birta · utan Access: sýnileiki eftir aukareglum (EXTRA_ALLOW), annars bara stjórnendur')); card.appendChild(meta); obox.appendChild(card);
+  }
+}
+$('admtabs').addEventListener('click', e => { const t = e.target.closest('.tab'); if (!t) return; if (ADMIN.dirty.size && !confirm('Henda óvistuðum breytingum?')) return; ADMIN.view = t.dataset.view; ADMIN.dirty.clear(); ADMIN.pstate = null; renderAdmin(); });
+$('sitefilter').addEventListener('input', e => { FILTER.q = e.target.value; renderAdmin(); });
+$('addperson').addEventListener('click', () => addPerson($('newperson').value));
+$('newperson').addEventListener('keydown', e => { if (e.key === 'Enter') addPerson($('newperson').value); });
+$('save').addEventListener('click', savePerson);
+$('removeall').addEventListener('click', removeAll);
+$('reload').addEventListener('click', () => { if (ADMIN.dirty.size && !confirm('Henda óvistuðum breytingum?')) return; loadAdmin(); });
+window.addEventListener('beforeunload', e => { if (ADMIN.dirty.size) { e.preventDefault(); e.returnValue = ''; } });
+
+/* ---------- init ---------- */
 async function init() {
   try { if (localStorage.getItem(HIDE_KEY) === '1') setHide(true); } catch (e) {}
-  const notice = document.getElementById('notice');
-  let r;
+  const notice = $('notice'); let r;
   try { r = await fetch('/api/cards' + location.search, { cache: 'no-store' }); } catch (e) { r = null; }
   if (!r || r.status === 404 || (r.headers.get('content-type') || '').indexOf('json') < 0) {
     notice.innerHTML = 'Þessi síða er flutt á <a href="https://isfast.pages.dev/">isfast.pages.dev</a>.'; notice.classList.remove('hidden'); return;
   }
   if (r.status === 401) { notice.innerHTML = 'Innskráning rann út. <a href="/">Skrá inn aftur</a>.'; notice.classList.remove('hidden'); return; }
-  render(await r.json());
+  renderCards(await r.json());
+  if (location.hash === '#adgangur' && ME.isAdmin) $('admintab').click();
 }
 init();
 </script>
